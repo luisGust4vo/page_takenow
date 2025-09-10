@@ -16,11 +16,18 @@ function App() {
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false)
-    }, 3000)
+    const handleLoad = () => {
+      setTimeout(() => {
+        setIsLoading(false)
+      }, 1500) // Delay mínimo para mostrar a animação
+    }
 
-    return () => clearTimeout(timer)
+    if (document.readyState === 'complete') {
+      handleLoad()
+    } else {
+      window.addEventListener('load', handleLoad)
+      return () => window.removeEventListener('load', handleLoad)
+    }
   }, [])
 
   if (isLoading) {

@@ -35,27 +35,52 @@ const Header = () => {
         <div className="flex items-center justify-between">
           <motion.div
             whileHover={{ scale: 1.05 }}
-            className={`flex items-center space-x-1 ${!isScrolled ? 'md:flex hidden' : 'flex'}`}
+            className={`flex items-center space-x-1 ${!isScrolled ? 'md:flex hidden' : 'flex'} relative`}
           >
-            <motion.img 
-              src="/img/logoT.png" 
-              alt="TakeNow Logo" 
-              className="w-10 h-10 object-contain" 
-              animate={{
-                y: [0, -3, 0],
-                rotate: [0, 2, 0]
-              }}
-              transition={{
-                duration: 3,
-                repeat: Infinity,
-                ease: "easeInOut"
-              }}
-              whileHover={{ 
-                rotate: -15,
-                y: -5,
-                transition: { duration: 0.3 }
-              }}
-            />
+            <div className="relative">
+              <motion.img 
+                src="/img/logoT.png" 
+                alt="TakeNow Logo" 
+                className="w-10 h-10 object-contain relative z-10" 
+                animate={{
+                  y: [0, -3, 0],
+                  rotate: [0, 2, 0]
+                }}
+                transition={{
+                  duration: 3,
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }}
+                whileHover={{ 
+                  rotate: -15,
+                  y: -5,
+                  transition: { duration: 0.3 }
+                }}
+              />
+              {/* Partículas */}
+              {[...Array(3)].map((_, i) => (
+                <motion.div
+                  key={i}
+                  className="absolute w-1 h-1 bg-blue-400 rounded-full"
+                  style={{
+                    left: '30%',
+                    top: '80%',
+                  }}
+                  animate={{
+                    y: [0, 15, 25],
+                    x: [0, (i - 1) * 8, (i - 1) * 12],
+                    opacity: [0.5, 0.4, 0],
+                    scale: [1, 0.8, 0.3]
+                  }}
+                  transition={{
+                    duration: 1.5,
+                    repeat: Infinity,
+                    delay: i * 0.2,
+                    ease: "easeOut"
+                  }}
+                />
+              ))}
+            </div>
             <span className="text-2xl font-bold text-white">
               TakeNow
             </span>

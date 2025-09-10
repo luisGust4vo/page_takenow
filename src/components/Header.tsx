@@ -37,7 +37,25 @@ const Header = () => {
             whileHover={{ scale: 1.05 }}
             className={`flex items-center space-x-1 ${!isScrolled ? 'md:flex hidden' : 'flex'}`}
           >
-            <img src="/img/logoT.png" alt="TakeNow Logo" className="w-10 h-10 object-contain" />
+            <motion.img 
+              src="/img/logoT.png" 
+              alt="TakeNow Logo" 
+              className="w-10 h-10 object-contain" 
+              animate={{
+                y: [0, -3, 0],
+                rotate: [0, 2, 0]
+              }}
+              transition={{
+                duration: 3,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
+              whileHover={{ 
+                rotate: -15,
+                y: -5,
+                transition: { duration: 0.3 }
+              }}
+            />
             <span className="text-2xl font-bold text-white">
               TakeNow
             </span>

@@ -46,8 +46,7 @@ const Hero = () => {
           playsInline
           className="w-full h-full object-cover"
         >
-          <source src="https://player.vimeo.com/external/434045526.sd.mp4?s=c27eecc69a27dbc4ff2b87d38afc35f1a9a1c5f8&profile_id=139&oauth2_token_id=57447761" type="video/mp4" />
-          {/* Fallback image */}
+          <source src="./src/video/backgroudvideo.mp4" type="video/mp4" />
         </video>
         <div className="absolute inset-0 bg-gradient-to-br from-gray-900/80 via-blue-900/60 to-primary-900/70"></div>
       </div>

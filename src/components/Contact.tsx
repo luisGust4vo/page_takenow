@@ -46,7 +46,7 @@ const Contact = () => {
     {
       icon: <MapPin size={24} />,
       title: 'Localização',
-      info: 'São Paulo, SP - Brasil',
+      info: 'Belo Horizonte, BH - Brasil',
       link: '#'
     }
   ]

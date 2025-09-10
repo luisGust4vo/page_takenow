@@ -32,7 +32,7 @@ const Portfolio = () => {
       title: 'NeoMed',
       category: 'Produto Próprio',
       description: 'Sistema completo para assinatura digital de laudos médicos e sistema de lembretes. Solução inovadora que otimiza o fluxo de trabalho em clínicas e hospitais.',
-      image: './src/img/image-medico.jpg',
+      image: '/images/image-medico.jpg',
       tech: ['React', 'Node.js', 'MongoDB', 'Digital Signature', 'Push Notifications'],
       link: '#',
       featured: true,

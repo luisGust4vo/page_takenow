@@ -46,7 +46,7 @@ const Hero = () => {
           playsInline
           className="w-full h-full object-cover"
         >
-          <source src="./src/video/backgroudvideo.mp4" type="video/mp4" />
+          <source src="/video/backgroudvideo.mp4" type="video/mp4" />
         </video>
         <div className="absolute inset-0 bg-gradient-to-br from-gray-900/90 via-blue-900/80 to-primary-900/85"></div>
       </div>

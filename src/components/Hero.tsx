@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import {ArrowRight, Code, Zap, Users} from 'lucide-react'
+import { useCountUp } from '../hooks/useCountUp'
 
 const Hero = () => {
   const [displayText, setDisplayText] = useState('')
@@ -116,34 +117,7 @@ const Hero = () => {
           </motion.div>
 
           {/* Stats */}
-          <motion.div 
-            className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-2xl mx-auto"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.8, duration: 0.8 }}
-          >
-            <div className="text-center">
-              <div className="flex justify-center mb-2">
-                <Code className="text-primary-400" size={32} />
-              </div>
-              <div className="text-3xl font-bold text-white">100+</div>
-              <div className="text-gray-200">Projetos Entregues</div>
-            </div>
-            <div className="text-center">
-              <div className="flex justify-center mb-2">
-                <Users className="text-secondary-400" size={32} />
-              </div>
-              <div className="text-3xl font-bold text-white">50+</div>
-              <div className="text-gray-200">Clientes Satisfeitos</div>
-            </div>
-            <div className="text-center">
-              <div className="flex justify-center mb-2">
-                <Zap className="text-primary-400" size={32} />
-              </div>
-              <div className="text-3xl font-bold text-white">5+</div>
-              <div className="text-gray-200">Anos de Experiência</div>
-            </div>
-          </motion.div>
+          <StatsSection />
         </motion.div>
       </div>
 
@@ -158,6 +132,43 @@ const Hero = () => {
         </div>
       </motion.div>
     </section>
+  )
+}
+
+const StatsSection = () => {
+  const { count: projectsCount, ref: projectsRef } = useCountUp(100)
+  const { count: clientsCount, ref: clientsRef } = useCountUp(50)
+  const { count: yearsCount, ref: yearsRef } = useCountUp(5)
+
+  return (
+    <motion.div 
+      className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-2xl mx-auto"
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 0.8, duration: 0.8 }}
+    >
+      <div className="text-center" ref={projectsRef}>
+        <div className="flex justify-center mb-2">
+          <Code className="text-primary-400" size={32} />
+        </div>
+        <div className="text-3xl font-bold text-white">{projectsCount}+</div>
+        <div className="text-gray-200">Projetos Entregues</div>
+      </div>
+      <div className="text-center" ref={clientsRef}>
+        <div className="flex justify-center mb-2">
+          <Users className="text-secondary-400" size={32} />
+        </div>
+        <div className="text-3xl font-bold text-white">{clientsCount}+</div>
+        <div className="text-gray-200">Clientes Satisfeitos</div>
+      </div>
+      <div className="text-center" ref={yearsRef}>
+        <div className="flex justify-center mb-2">
+          <Zap className="text-primary-400" size={32} />
+        </div>
+        <div className="text-3xl font-bold text-white">{yearsCount}+</div>
+        <div className="text-gray-200">Anos de Experiência</div>
+      </div>
+    </motion.div>
   )
 }
 

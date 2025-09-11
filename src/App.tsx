@@ -11,6 +11,7 @@ import Footer from './components/Footer'
 import ParticleBackground from './components/ParticleBackground'
 import WhatsAppButton from './components/WhatsAppButton'
 import Loading from './components/Loading'
+import CustomCursor from './components/CustomCursor'
 
 function App() {
   const [isLoading, setIsLoading] = useState(true)
@@ -35,7 +36,8 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white overflow-x-hidden">
+    <div className="min-h-screen bg-gray-900 text-white overflow-x-hidden" style={{ cursor: 'none' }}>
+      <CustomCursor />
       <ParticleBackground />
       <Header />
       <main>

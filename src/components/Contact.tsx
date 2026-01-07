@@ -1,8 +1,8 @@
 
-import React, { useState } from 'react'
+import React from 'react'
 import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
-import {Mail, Phone, MapPin, Send, MessageSquare} from 'lucide-react'
+import { MessageCircle, MapPin } from 'lucide-react'
 
 const Contact = () => {
   const [ref, inView] = useInView({
@@ -10,68 +10,26 @@ const Contact = () => {
     threshold: 0.1
   })
 
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    company: '',
-    message: ''
-  })
+  const whatsappNumber = "5511999999999"
+  const whatsappMessage = "Olá! Gostaria de saber mais sobre os serviços da TakeNow."
 
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [submitMessage, setSubmitMessage] = useState('')
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setIsSubmitting(true)
-    setSubmitMessage('')
-
-    try {
-      const response = await fetch('http://localhost:3001/contact', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      })
-
-      if (response.ok) {
-        setSubmitMessage('Mensagem enviada com sucesso!')
-        setFormData({ name: '', email: '', company: '', message: '' })
-      } else {
-        setSubmitMessage('Erro ao enviar mensagem. Tente novamente.')
-      }
-    } catch (error) {
-      setSubmitMessage('Erro ao enviar mensagem. Tente novamente.')
-    } finally {
-      setIsSubmitting(false)
-    }
-  }
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    })
+  const handleWhatsAppClick = () => {
+    const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`
+    window.open(url, '_blank')
   }
 
   const contactInfo = [
     {
-      icon: <Mail size={24} />,
-      title: 'Email',
-      info: 'contato@takenow.com.br',
-      link: 'mailto:contato@takenow.com.br'
-    },
-    {
-      icon: <Phone size={24} />,
-      title: 'Telefone',
+      icon: <MessageCircle size={24} />,
+      title: 'WhatsApp',
       info: '+55 (11) 9999-9999',
-      link: 'tel:+5511999999999'
+      action: handleWhatsAppClick
     },
     {
       icon: <MapPin size={24} />,
       title: 'Localização',
       info: 'Belo Horizonte, BH - Brasil',
-      link: '#'
+      action: null
     }
   ]
 
@@ -103,114 +61,12 @@ const Contact = () => {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
-          {/* Contact Form */}
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            animate={inView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="bg-gradient-to-br from-gray-800/50 to-gray-900/50 p-8 rounded-2xl backdrop-blur-sm border border-gray-700/50"
-          >
-            <div className="flex items-center gap-3 mb-6">
-              <MessageSquare className="text-primary-400" size={32} />
-              <h3 className="text-2xl font-bold text-white">Envie uma Mensagem</h3>
-            </div>
-
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-gray-300 text-sm font-medium mb-2">
-                    Nome *
-                  </label>
-                  <input
-                    type="text"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-4 py-3 bg-gray-700/50 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:border-primary-500 focus:outline-none transition-colors duration-300"
-                    placeholder="Seu nome"
-                  />
-                </div>
-                <div>
-                  <label className="block text-gray-300 text-sm font-medium mb-2">
-                    Email *
-                  </label>
-                  <input
-                    type="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-4 py-3 bg-gray-700/50 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:border-primary-500 focus:outline-none transition-colors duration-300"
-                    placeholder="seu@email.com"
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-gray-300 text-sm font-medium mb-2">
-                  Empresa
-                </label>
-                <input
-                  type="text"
-                  name="company"
-                  value={formData.company}
-                  onChange={handleChange}
-                  className="w-full px-4 py-3 bg-gray-700/50 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:border-primary-500 focus:outline-none transition-colors duration-300"
-                  placeholder="Nome da sua empresa"
-                />
-              </div>
-
-              <div>
-                <label className="block text-gray-300 text-sm font-medium mb-2">
-                  Mensagem *
-                </label>
-                <textarea
-                  name="message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  required
-                  rows={5}
-                  className="w-full px-4 py-3 bg-gray-700/50 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:border-primary-500 focus:outline-none transition-colors duration-300 resize-none"
-                  placeholder="Conte-nos sobre seu projeto..."
-                />
-              </div>
-
-              <motion.button
-                whileHover={{ scale: isSubmitting ? 1 : 1.02 }}
-                whileTap={{ scale: isSubmitting ? 1 : 0.98 }}
-                type="submit"
-                disabled={isSubmitting}
-                className={`w-full px-8 py-4 rounded-lg font-semibold text-lg flex items-center justify-center gap-2 transition-all duration-300 ${
-                  isSubmitting 
-                    ? 'bg-gray-600 cursor-not-allowed' 
-                    : 'bg-gradient-to-r from-primary-500 to-accent-500 hover:shadow-lg'
-                }`}
-              >
-                {isSubmitting ? 'Enviando...' : 'Enviar Mensagem'}
-                <Send size={20} />
-              </motion.button>
-              
-              {submitMessage && (
-                <motion.p
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className={`text-center mt-4 ${
-                    submitMessage.includes('sucesso') ? 'text-green-400' : 'text-red-400'
-                  }`}
-                >
-                  {submitMessage}
-                </motion.p>
-              )}
-            </form>
-          </motion.div>
-
+        <div className="max-w-4xl mx-auto">
           {/* Contact Info */}
           <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            animate={inView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.4 }}
+            initial={{ opacity: 0, y: 50 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.8, delay: 0.2 }}
             className="space-y-8"
           >
             <div>
@@ -223,47 +79,54 @@ const Contact = () => {
               </p>
             </div>
 
-            <div className="space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {contactInfo.map((item, index) => (
-                <motion.a
+                <motion.div
                   key={index}
-                  href={item.link}
                   initial={{ opacity: 0, y: 20 }}
                   animate={inView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ duration: 0.6, delay: 0.6 + index * 0.1 }}
-                  whileHover={{ scale: 1.02, x: 10 }}
-                  className="flex items-center space-x-4 p-4 bg-gradient-to-r from-gray-800/30 to-gray-900/30 rounded-xl backdrop-blur-sm border border-gray-700/30 hover:border-primary-500/50 transition-all duration-300 group"
+                  transition={{ duration: 0.6, delay: 0.4 + index * 0.1 }}
+                  whileHover={{ scale: 1.02 }}
+                  onClick={item.action}
+                  className={`flex items-center space-x-4 p-6 bg-gradient-to-r from-gray-800/50 to-gray-900/50 rounded-xl backdrop-blur-sm border border-gray-700/50 transition-all duration-300 group ${
+                    item.action ? 'cursor-pointer hover:border-green-500/50 hover:bg-green-500/10' : 'hover:border-primary-500/50'
+                  }`}
                 >
-                  <div className="text-primary-400 group-hover:text-primary-300 transition-colors duration-300">
+                  <div className={`transition-colors duration-300 ${
+                    item.action ? 'text-green-400 group-hover:text-green-300' : 'text-primary-400 group-hover:text-primary-300'
+                  }`}>
                     {item.icon}
                   </div>
                   <div>
                     <div className="text-white font-semibold">{item.title}</div>
                     <div className="text-gray-300">{item.info}</div>
                   </div>
-                </motion.a>
+                </motion.div>
               ))}
             </div>
 
-            {/* CTA Section */}
+            {/* WhatsApp CTA Section */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.8 }}
-              className="bg-gradient-to-r from-primary-500/20 to-accent-500/20 p-6 rounded-xl border border-primary-500/30"
+              transition={{ duration: 0.6, delay: 0.6 }}
+              className="bg-gradient-to-r from-green-500/20 to-green-600/20 p-8 rounded-xl border border-green-500/30 text-center"
             >
-              <h4 className="text-xl font-bold text-white mb-3">
-                Pronto para começar?
+              <MessageCircle className="mx-auto mb-4 text-green-400" size={48} />
+              <h4 className="text-2xl font-bold text-white mb-3">
+                Fale Conosco no WhatsApp
               </h4>
-              <p className="text-gray-300 mb-4">
-                Agende uma conversa gratuita e vamos discutir como podemos ajudar seu negócio a crescer.
+              <p className="text-gray-300 mb-6">
+                Entre em contato diretamente pelo WhatsApp e vamos discutir como podemos ajudar seu negócio a crescer.
               </p>
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="bg-gradient-to-r from-primary-500 to-accent-500 px-6 py-3 rounded-lg font-semibold hover:shadow-lg transition-all duration-300"
+                onClick={handleWhatsAppClick}
+                className="bg-gradient-to-r from-green-500 to-green-600 px-8 py-4 rounded-lg font-semibold text-lg hover:shadow-lg transition-all duration-300 flex items-center gap-2 mx-auto"
               >
-                Agendar Conversa
+                <MessageCircle size={20} />
+                Conversar no WhatsApp
               </motion.button>
             </motion.div>
           </motion.div>

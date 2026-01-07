@@ -11,7 +11,7 @@ const Loading = () => {
           animate={{
             y: [0, -20, 0],
             rotate: [0, 5, -5, 0]
-          }}
+          }} 
           transition={{
             duration: 2,
             repeat: Infinity,
@@ -19,8 +19,8 @@ const Loading = () => {
           }}
         >
           <img 
-            src="/img/logoT.png" 
-            alt="TakeNow Logo" 
+            src="/img/logoT.png"
+            alt="TakeNow Logo"
             className="w-20 h-20 mx-auto"
           />
           

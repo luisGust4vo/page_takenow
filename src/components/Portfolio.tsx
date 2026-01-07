@@ -28,17 +28,17 @@ const Portfolio = () => {
   }, [inView])
 
   const projects = [
-    {
-      title: 'NeoMed',
-      category: 'Produto Próprio',
-      description: 'Sistema completo para assinatura digital de laudos médicos e sistema de lembretes. Solução inovadora que otimiza o fluxo de trabalho em clínicas e hospitais.',
-      image: '/img/image-medico.jpg',
-      tech: ['React', 'Node.js', 'MongoDB', 'Digital Signature', 'Push Notifications'],
-      link: '#',
-      featured: true,
-      badge: 'Nosso Produto',
-      stats: { views: '15k+', users: '500+', rating: '4.9' }
-    },
+    // {
+    //   // title: 'NeoMed',
+    //   category: 'Produto Próprio',
+    //   description: 'Sistema completo para assinatura digital de laudos médicos e sistema de lembretes. Solução inovadora que otimiza o fluxo de trabalho em clínicas e hospitais.',
+    //   image: '/img/image-medico.jpg',
+    //   tech: ['React', 'Node.js', 'MongoDB', 'Digital Signature', 'Push Notifications'],
+    //   link: '#',
+    //   featured: true,
+    //   badge: 'Nosso Produto',
+    //   stats: { views: '15k+', users: '500+', rating: '4.9' }
+    // },
     {
       title: 'Landing Pages Personalizadas',
       category: 'Marketing Digital',
@@ -135,7 +135,7 @@ const Portfolio = () => {
         </motion.div>
 
         {/* Projeto Destacado - NeoMed */}
-        <motion.div
+        {/* <motion.div
           initial={{ opacity: 0, y: 50 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.3 }}
@@ -144,7 +144,6 @@ const Portfolio = () => {
           onHoverEnd={() => setHoveredProject(null)}
         >
           <div className="group relative bg-gradient-to-br from-primary-500/20 via-gray-800/50 to-gray-900/50 rounded-3xl overflow-hidden backdrop-blur-sm border-2 border-primary-500/50 hover:border-primary-400/70 transition-all duration-500 shadow-2xl hover:shadow-primary-500/20">
-            {/* Efeito de brilho animado */}
             <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-primary-400/10 to-transparent transform -skew-x-12 animate-shimmer"></div>
             </div>
@@ -173,7 +172,6 @@ const Portfolio = () => {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-gray-900/90 via-gray-900/20 to-transparent"></div>
               
-              {/* Stats overlay */}
               <div className="absolute top-4 left-4 opacity-0 group-hover:opacity-100 transition-all duration-500 transform translate-y-4 group-hover:translate-y-0">
                 <div className="flex flex-wrap gap-2">
                   <div className="bg-black/60 backdrop-blur-sm text-white px-3 py-1 rounded-full text-xs flex items-center gap-1">
@@ -260,18 +258,18 @@ const Portfolio = () => {
               </motion.button>
             </div>
           </div>
-        </motion.div>
+        </motion.div> */}
 
         {/* Outros Projetos - Grid Padronizado */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
-          {projects.slice(1).map((project, index) => (
+          {projects.map((project, index) => (
             <motion.div
-              key={index + 1}
+              key={index}
               initial={{ opacity: 0, y: 50 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: (index + 1) * 0.15 }}
+              transition={{ duration: 0.6, delay: index * 0.15 }}
               whileHover={{ y: -8, scale: 1.02 }}
-              onHoverStart={() => setHoveredProject(index + 1)}
+              onHoverStart={() => setHoveredProject(index)}
               onHoverEnd={() => setHoveredProject(null)}
               className="group relative bg-gradient-to-br from-gray-800/60 to-gray-900/80 rounded-2xl overflow-hidden backdrop-blur-sm border border-gray-700/50 hover:border-primary-500/40 transition-all duration-400 shadow-xl hover:shadow-2xl hover:shadow-primary-500/10 h-full"
             >
@@ -283,7 +281,7 @@ const Portfolio = () => {
               {project.badge && (
                 <div className="absolute top-4 left-4 z-20">
                   <motion.div
-                    animate={{ scale: hoveredProject === index + 1 ? 1.1 : 1 }}
+                    animate={{ scale: hoveredProject === index ? 1.1 : 1 }}
                     className="bg-gradient-to-r from-secondary-500 to-primary-500 text-white px-3 py-1 rounded-full text-xs font-semibold flex items-center gap-1 shadow-md"
                   >
                     <Sparkles size={12} className="animate-pulse" />
@@ -369,8 +367,8 @@ const Portfolio = () => {
                 >
                   Ver Projeto
                   <motion.div
-                    animate={{ x: hoveredProject === index + 1 ? [0, 5, 0] : 0 }}
-                    transition={{ repeat: hoveredProject === index + 1 ? Infinity : 0, duration: 1.8 }}
+                    animate={{ x: hoveredProject === index ? [0, 5, 0] : 0 }}
+                    transition={{ repeat: hoveredProject === index ? Infinity : 0, duration: 1.8 }}
                   >
                     <ArrowRight size={16} />
                   </motion.div>

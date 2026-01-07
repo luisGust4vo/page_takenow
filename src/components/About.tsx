@@ -34,6 +34,7 @@ const About = () => {
     { icon: <Lightbulb size={24} />, number: '5+', label: 'Anos de Mercado' },
     { icon: <Award size={24} />, number: '99%', label: 'Satisfação Cliente' }
   ]
+  
 
   return (
     <section id="about" className="py-20 relative overflow-hidden">

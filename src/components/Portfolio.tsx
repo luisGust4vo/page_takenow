@@ -13,6 +13,14 @@ const Portfolio = () => {
   const [projectCount, setProjectCount] = useState(0)
   const [hoveredProject, setHoveredProject] = useState<number | null>(null)
 
+  // WhatsApp contact function
+  const handleWhatsAppClick = () => {
+    const whatsappNumber = "5537988419118"
+    const whatsappMessage = "Olá! Vi seus projetos no portfólio e gostaria de saber mais sobre os serviços da TakeNow."
+    const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`
+    window.open(url, '_blank')
+  }
+
   // Contador animado de projetos
   useEffect(() => {
     if (inView) {
@@ -315,6 +323,7 @@ const Portfolio = () => {
                     <motion.button 
                       whileHover={{ scale: 1.1, rotate: 5 }}
                       whileTap={{ scale: 0.9 }}
+                      onClick={handleWhatsAppClick}
                       className="bg-primary-500/90 backdrop-blur-sm p-2 rounded-full hover:bg-primary-600 transition-colors duration-300 shadow-lg"
                     >
                       <ExternalLink size={16} className="text-white" />
@@ -322,6 +331,7 @@ const Portfolio = () => {
                     <motion.button 
                       whileHover={{ scale: 1.1, rotate: -5 }}
                       whileTap={{ scale: 0.9 }}
+                      onClick={handleWhatsAppClick}
                       className="bg-gray-700/90 backdrop-blur-sm p-2 rounded-full hover:bg-gray-600 transition-colors duration-300 shadow-lg"
                     >
                       <Github size={16} className="text-white" />
@@ -363,9 +373,10 @@ const Portfolio = () => {
 
                 <motion.button
                   whileHover={{ scale: 1.05, x: 3 }}
+                  onClick={handleWhatsAppClick}
                   className="flex items-center gap-2 text-secondary-400 font-semibold hover:text-primary-400 transition-colors duration-300 mt-auto"
                 >
-                  Ver Projeto
+                  Falar sobre este projeto
                   <motion.div
                     animate={{ x: hoveredProject === index ? [0, 5, 0] : 0 }}
                     transition={{ repeat: hoveredProject === index ? Infinity : 0, duration: 1.8 }}
@@ -392,9 +403,10 @@ const Portfolio = () => {
               background: "linear-gradient(45deg, #3B82F6, #8B5CF6, #06B6D4)"
             }}
             whileTap={{ scale: 0.95 }}
+            onClick={handleWhatsAppClick}
             className="bg-gradient-to-r from-primary-500 via-blue-500 to-secondary-500 px-10 py-4 rounded-full font-bold text-lg hover:shadow-2xl transition-all duration-400 text-white border border-primary-400/30 hover:border-primary-300/50 relative overflow-hidden group"
           >
-            <span className="relative z-10">Ver Todos os Projetos</span>
+            <span className="relative z-10">Falar sobre um projeto</span>
             <div className="absolute inset-0 bg-gradient-to-r from-primary-600 via-blue-600 to-secondary-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
           </motion.button>
         </motion.div>

@@ -13,11 +13,46 @@ const Portfolio = () => {
   const [projectCount, setProjectCount] = useState(0)
   const [hoveredProject, setHoveredProject] = useState<number | null>(null)
 
-  // WhatsApp contact function
+  // WhatsApp contact function com segurança
   const handleWhatsAppClick = () => {
-    const whatsappNumber = "5537988419118"
+    // Rate limiting mais flexível
+    const lastClick = localStorage.getItem('lastWhatsAppClick')
+    const clickCount = localStorage.getItem('whatsappClickCount') || '0'
+    const now = Date.now()
+    
+    if (lastClick) {
+      const timeDiff = now - parseInt(lastClick)
+      
+      // Reset contador se passou mais de 1 minuto
+      if (timeDiff > 60000) {
+        localStorage.setItem('whatsappClickCount', '1')
+      } else {
+        const currentCount = parseInt(clickCount) + 1
+        
+        // Máximo 3 cliques por minuto
+        if (currentCount > 3) {
+          alert('Muitos cliques seguidos. Aguarde 1 minuto.')
+          return
+        }
+        
+        localStorage.setItem('whatsappClickCount', currentCount.toString())
+      }
+    } else {
+      localStorage.setItem('whatsappClickCount', '1')
+    }
+    
+    localStorage.setItem('lastWhatsAppClick', now.toString())
+    
+    // Número codificado
+    const encodedNumber = 'NTUzNzk4ODQxOTExOA==' // 5537988419118 em base64
+    const whatsappNumber = atob(encodedNumber)
     const whatsappMessage = "Olá! Vi seus projetos no portfólio e gostaria de saber mais sobre os serviços da TakeNow."
-    const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`
+    
+    // Adicionar timestamp
+    const timestamp = new Date().toISOString()
+    const finalMessage = `${whatsappMessage} [${timestamp.slice(0, 16)}]`
+    
+    const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(finalMessage)}`
     window.open(url, '_blank')
   }
 

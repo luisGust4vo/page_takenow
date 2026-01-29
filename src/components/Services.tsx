@@ -10,6 +10,31 @@ const Services = () => {
     threshold: 0.1
   })
 
+  // WhatsApp contact function
+  const handleWhatsAppClick = (serviceName) => {
+    // Rate limiting
+    const lastClick = localStorage.getItem('lastServicesClick')
+    const now = Date.now()
+    
+    if (lastClick && (now - parseInt(lastClick)) < 10000) {
+      return
+    }
+    
+    localStorage.setItem('lastServicesClick', now.toString())
+    
+    // Número codificado
+    const encodedNumber = 'NTUzNzk4ODQxOTExOA==' // 5537988419118 em base64
+    const whatsappNumber = atob(encodedNumber)
+    const whatsappMessage = `Olá! Tenho interesse no serviço de ${serviceName} e gostaria de saber mais detalhes.`
+    
+    // Adicionar timestamp
+    const timestamp = new Date().toISOString()
+    const finalMessage = `${whatsappMessage} [${timestamp.slice(0, 16)}]`
+    
+    const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(finalMessage)}`
+    window.open(url, '_blank')
+  }
+
   const services = [
     {
       icon: <Code size={40} />,
@@ -104,6 +129,7 @@ const Services = () => {
               <div className="mt-6 pt-6 border-t border-gray-700/50">
                 <motion.button
                   whileHover={{ scale: 1.05 }}
+                  onClick={() => handleWhatsAppClick(service.title)}
                   className="text-primary-400 font-semibold hover:text-secondary-400 transition-colors duration-300"
                 >
                   Saiba Mais →

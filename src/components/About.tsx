@@ -10,6 +10,31 @@ const About = () => {
     threshold: 0.1
   })
 
+  // WhatsApp contact function
+  const handleWhatsAppClick = () => {
+    // Rate limiting
+    const lastClick = localStorage.getItem('lastAboutClick')
+    const now = Date.now()
+    
+    if (lastClick && (now - parseInt(lastClick)) < 10000) {
+      return
+    }
+    
+    localStorage.setItem('lastAboutClick', now.toString())
+    
+    // Número codificado
+    const encodedNumber = 'NTUzNzk4ODQxOTExOA==' // 5537988419118 em base64
+    const whatsappNumber = atob(encodedNumber)
+    const whatsappMessage = "Olá! Gostaria de conhecer melhor a equipe da TakeNow e saber como vocês podem ajudar meu negócio."
+    
+    // Adicionar timestamp
+    const timestamp = new Date().toISOString()
+    const finalMessage = `${whatsappMessage} [${timestamp.slice(0, 16)}]`
+    
+    const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(finalMessage)}`
+    window.open(url, '_blank')
+  }
+
   const values = [
     {
       icon: <Target size={32} />,
@@ -95,6 +120,7 @@ const About = () => {
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
+              onClick={handleWhatsAppClick}
               className="bg-gradient-to-r from-primary-500 to-accent-500 px-8 py-3 rounded-full font-semibold hover:shadow-lg transition-all duration-300"
             >
               Conheça Nossa Equipe

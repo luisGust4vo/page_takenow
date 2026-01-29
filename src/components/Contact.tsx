@@ -1,8 +1,8 @@
 
-import React from 'react'
+import React, { useState } from 'react'
 import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
-import { MessageCircle, MapPin } from 'lucide-react'
+import { MessageCircle, MapPin, Shield, Clock } from 'lucide-react'
 
 const Contact = () => {
   const [ref, inView] = useInView({
@@ -10,25 +10,92 @@ const Contact = () => {
     threshold: 0.1
   })
 
-  const whatsappNumber = "5537988419118"
-  const whatsappMessage = "Olá! Gostaria de saber mais sobre os serviços da TakeNow."
+  const [isVerified, setIsVerified] = useState(false)
+  const [lastClick, setLastClick] = useState(0)
+  const [clickCount, setClickCount] = useState(0)
+  const [showCaptcha, setShowCaptcha] = useState(false)
+  const [captchaAnswer, setCaptchaAnswer] = useState('')
+  const [captchaQuestion, setCaptchaQuestion] = useState({ question: '', answer: 0 })
 
+  // Gerar captcha simples
+  const generateCaptcha = () => {
+    const num1 = Math.floor(Math.random() * 10) + 1
+    const num2 = Math.floor(Math.random() * 10) + 1
+    const operations = ['+', '-']
+    const operation = operations[Math.floor(Math.random() * operations.length)]
+    const answer = operation === '+' ? num1 + num2 : num1 - num2
+    
+    setCaptchaQuestion({
+      question: `${num1} ${operation} ${num2} = ?`,
+      answer: answer
+    })
+  }
+
+  // Rate limiting e verificação anti-bot
   const handleWhatsAppClick = () => {
-    const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`
+    const now = Date.now()
+    const timeDiff = now - lastClick
+    
+    // Rate limiting: máximo 3 cliques em 10 segundos
+    if (timeDiff < 10000) {
+      setClickCount(prev => prev + 1)
+      if (clickCount >= 3) {
+        alert('Muitos cliques seguidos. Aguarde 10 segundos.')
+        return
+      }
+    } else {
+      setClickCount(1)
+    }
+    
+    // Se muitos cliques em pouco tempo (mais de 5 em 5 minutos), mostrar captcha
+    if (clickCount >= 5 && !isVerified) {
+      setShowCaptcha(true)
+      generateCaptcha()
+      return
+    }
+    
+    setLastClick(now)
+    openWhatsApp()
+  }
+
+  const openWhatsApp = () => {
+    // Número codificado em base64 para dificultar scraping
+    const encodedNumber = 'NTUzNzk4ODQxOTExOA==' // 5537988419118 em base64
+    const whatsappNumber = atob(encodedNumber)
+    const whatsappMessage = "Olá! Vim através do site da TakeNow e gostaria de saber mais sobre os serviços."
+    
+    // Adicionar timestamp para rastreamento
+    const timestamp = new Date().toISOString()
+    const finalMessage = `${whatsappMessage} [${timestamp.slice(0, 16)}]`
+    
+    const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(finalMessage)}`
     window.open(url, '_blank')
+  }
+
+  const handleCaptchaSubmit = () => {
+    if (parseInt(captchaAnswer) === captchaQuestion.answer) {
+      setIsVerified(true)
+      setShowCaptcha(false)
+      setCaptchaAnswer('')
+      openWhatsApp()
+    } else {
+      alert('Resposta incorreta. Tente novamente.')
+      generateCaptcha()
+      setCaptchaAnswer('')
+    }
   }
 
   const contactInfo = [
     {
       icon: <MessageCircle size={24} />,
-      title: 'WhatsApp',
-      info: '+55 (37) 9 8841-9118',
+      title: 'WhatsApp Business',
+      info: 'Clique para conversar',
       action: handleWhatsAppClick
     },
     {
       icon: <MapPin size={24} />,
       title: 'Localização',
-      info: 'Belo Horizonte, BH - Brasil',
+      info: 'Minas Gerais, Brasil',
       action: null
     }
   ]
@@ -112,22 +179,73 @@ const Contact = () => {
               transition={{ duration: 0.6, delay: 0.6 }}
               className="bg-gradient-to-r from-green-500/20 to-green-600/20 p-8 rounded-xl border border-green-500/30 text-center"
             >
-              <MessageCircle className="mx-auto mb-4 text-green-400" size={48} />
+              <div className="flex items-center justify-center gap-2 mb-4">
+                <MessageCircle className="text-green-400" size={48} />
+                <Shield className="text-blue-400" size={24} />
+              </div>
               <h4 className="text-2xl font-bold text-white mb-3">
                 Fale Conosco no WhatsApp
               </h4>
               <p className="text-gray-300 mb-6">
-                Entre em contato diretamente pelo WhatsApp e vamos discutir como podemos ajudar seu negócio a crescer.
+                Entre em contato diretamente pelo WhatsApp. Conexão segura e verificada.
               </p>
+              
+              {/* Captcha Modal */}
+              {showCaptcha && (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  className="bg-gray-800/90 backdrop-blur-sm p-6 rounded-lg border border-gray-600 mb-6"
+                >
+                  <div className="flex items-center gap-2 mb-4">
+                    <Shield className="text-blue-400" size={20} />
+                    <span className="text-white font-semibold">Verificação de Segurança</span>
+                  </div>
+                  <p className="text-gray-300 mb-4">Resolva esta operação para continuar:</p>
+                  <div className="text-2xl font-bold text-white mb-4">{captchaQuestion.question}</div>
+                  <input
+                    type="number"
+                    value={captchaAnswer}
+                    onChange={(e) => setCaptchaAnswer(e.target.value)}
+                    className="w-20 px-3 py-2 bg-gray-700 border border-gray-600 rounded text-white text-center mb-4"
+                    placeholder="?"
+                  />
+                  <div className="flex gap-3 justify-center">
+                    <button
+                      onClick={handleCaptchaSubmit}
+                      className="bg-green-500 px-4 py-2 rounded text-white font-semibold hover:bg-green-600 transition-colors"
+                    >
+                      Verificar
+                    </button>
+                    <button
+                      onClick={() => setShowCaptcha(false)}
+                      className="bg-gray-600 px-4 py-2 rounded text-white font-semibold hover:bg-gray-700 transition-colors"
+                    >
+                      Cancelar
+                    </button>
+                  </div>
+                </motion.div>
+              )}
+              
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={handleWhatsAppClick}
-                className="bg-gradient-to-r from-green-500 to-green-600 px-8 py-4 rounded-lg font-semibold text-lg hover:shadow-lg transition-all duration-300 flex items-center gap-2 mx-auto"
+                disabled={showCaptcha}
+                className={`px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 flex items-center gap-2 mx-auto ${
+                  showCaptcha 
+                    ? 'bg-gray-600 cursor-not-allowed' 
+                    : 'bg-gradient-to-r from-green-500 to-green-600 hover:shadow-lg'
+                }`}
               >
                 <MessageCircle size={20} />
-                Conversar no WhatsApp
+                {isVerified ? 'Conversar no WhatsApp ✓' : 'Conversar no WhatsApp'}
               </motion.button>
+              
+              <div className="flex items-center justify-center gap-2 mt-4 text-xs text-gray-400">
+                <Clock size={12} />
+                <span>Resposta em até 2 horas • Conexão segura</span>
+              </div>
             </motion.div>
           </motion.div>
         </div>

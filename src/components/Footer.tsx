@@ -72,17 +72,17 @@ const Footer = () => {
               Sua fábrica de software de confiança.
             </p>
             <div className="space-y-3">
-              <div className="flex items-center space-x-3 text-gray-300">
+              {/* <div className="flex items-center space-x-3 text-gray-300">
                 <Mail size={16} className="text-primary-400" />
                 <span className="text-sm">contato@takenow.com.br</span>
-              </div>
+              </div> */}
               <div className="flex items-center space-x-3 text-gray-300">
                 <Phone size={16} className="text-primary-400" />
-                <span className="text-sm">+55 (37) 9 8841-9118</span>
+                <span className="text-sm">WhatsApp Business</span>
               </div>
               <div className="flex items-center space-x-3 text-gray-300">
                 <MapPin size={16} className="text-primary-400" />
-                <span className="text-sm">São Paulo, SP - Brasil</span>
+                <span className="text-sm">Belo Horizonte, MG - Brasil</span>
               </div>
             </div>
           </motion.div>
@@ -191,7 +191,7 @@ const Footer = () => {
               transition={{ duration: 0.6 }}
               className="text-gray-400 text-sm mb-4 md:mb-0"
             >
-              © 2024 TakeNow. Todos os direitos reservados.
+              © 2026 TakeNowStudios. Todos os direitos reservados.
             </motion.div>
 
             {/* Social Links */}

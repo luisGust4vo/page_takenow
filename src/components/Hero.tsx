@@ -16,6 +16,33 @@ const Hero = () => {
     'E-commerce Completos'
   ]
 
+  // WhatsApp contact function
+  const handleWhatsAppClick = (source) => {
+    // Rate limiting
+    const lastClick = localStorage.getItem('lastHeroClick')
+    const now = Date.now()
+    
+    if (lastClick && (now - parseInt(lastClick)) < 10000) {
+      return
+    }
+    
+    localStorage.setItem('lastHeroClick', now.toString())
+    
+    // Número codificado
+    const encodedNumber = 'NTUzNzk4ODQxOTExOA==' // 5537988419118 em base64
+    const whatsappNumber = atob(encodedNumber)
+    const whatsappMessage = source === 'projeto' 
+      ? "Olá! Quero começar um projeto com a TakeNow e gostaria de conversar sobre minhas necessidades."
+      : "Olá! Vi o site da TakeNow e gostaria de conhecer melhor o portfólio de projetos."
+    
+    // Adicionar timestamp
+    const timestamp = new Date().toISOString()
+    const finalMessage = `${whatsappMessage} [${timestamp.slice(0, 16)}]`
+    
+    const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(finalMessage)}`
+    window.open(url, '_blank')
+  }
+
   useEffect(() => {
     const currentWord = words[currentWordIndex]
     
@@ -100,6 +127,7 @@ const Hero = () => {
             <motion.button
               whileHover={{ scale: 1.05, boxShadow: '0 20px 40px rgba(14, 165, 233, 0.3)' }}
               whileTap={{ scale: 0.95 }}
+              onClick={() => handleWhatsAppClick('projeto')}
               className="bg-gradient-to-r from-primary-500 to-secondary-500 px-8 py-4 rounded-full font-semibold text-lg flex items-center gap-2 hover:shadow-2xl transition-all duration-300 text-white"
             >
               Começar Meu Projeto
@@ -109,6 +137,7 @@ const Hero = () => {
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
+              onClick={() => handleWhatsAppClick('portfolio')}
               className="border-2 border-primary-500 text-primary-400 px-8 py-4 rounded-full font-semibold text-lg hover:bg-primary-500 hover:text-white transition-all duration-300"
             >
               Ver Portfolio

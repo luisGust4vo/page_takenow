@@ -93,7 +93,7 @@ const Portfolio = () => {
       stats: { conversions: '85%', clients: '30+', projects: '50+' }
     },
     {
-      title: 'E-commerce Fashion',
+      title: 'E-commerce',
       category: 'E-commerce',
       description: 'Plataforma completa de vendas online com gestão de estoque, pagamentos integrados e dashboard administrativo.',
       image: 'https://images.pexels.com/photos/230544/pexels-photo-230544.jpeg?auto=compress&cs=tinysrgb&w=800',

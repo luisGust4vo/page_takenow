@@ -36,10 +36,7 @@ const Footer = () => {
   }
 
   const socialLinks = [
-    { icon: <Github size={20} />, href: '#', label: 'GitHub' },
-    { icon: <Linkedin size={20} />, href: '#', label: 'LinkedIn' },
-    { icon: <Instagram size={20} />, href: '#', label: 'Instagram' },
-    { icon: <Twitter size={20} />, href: '#', label: 'Twitter' }
+    // Redes sociais removidas temporariamente
   ]
 
   return (
@@ -194,8 +191,8 @@ const Footer = () => {
               © 2026 TakeNowStudios. Todos os direitos reservados.
             </motion.div>
 
-            {/* Social Links */}
-            <motion.div
+            {/* Social Links - Removidas */}
+            {/* <motion.div
               initial={{ opacity: 0, x: 20 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6 }}
@@ -212,7 +209,7 @@ const Footer = () => {
                   {social.icon}
                 </motion.a>
               ))}
-            </motion.div>
+            </motion.div> */}
           </div>
         </div>
 

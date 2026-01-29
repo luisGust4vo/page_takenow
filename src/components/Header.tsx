@@ -7,6 +7,28 @@ const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
+  // WhatsApp contact function
+  const handleWhatsAppClick = () => {
+    const lastClick = localStorage.getItem('lastHeaderClick')
+    const now = Date.now()
+    
+    if (lastClick && (now - parseInt(lastClick)) < 10000) {
+      return
+    }
+    
+    localStorage.setItem('lastHeaderClick', now.toString())
+    
+    const encodedNumber = 'NTUzNzk4ODQxOTExOA=='
+    const whatsappNumber = atob(encodedNumber)
+    const whatsappMessage = "Olá! Cliquei em 'Começar Projeto' no header e quero iniciar meu projeto digital agora!"
+    
+    const timestamp = new Date().toISOString()
+    const finalMessage = `${whatsappMessage} [${timestamp.slice(0, 16)}]`
+    
+    const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(finalMessage)}`
+    window.open(url, '_blank')
+  }
+
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50)
@@ -104,6 +126,7 @@ const Header = () => {
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
+            onClick={handleWhatsAppClick}
             className="hidden md:block bg-gradient-to-r from-primary-500 to-accent-500 px-6 py-2 rounded-full font-semibold hover:shadow-lg transition-all duration-300"
           >
             Começar Projeto
@@ -135,7 +158,10 @@ const Header = () => {
                 {item.name}
               </a>
             ))}
-            <button className="w-full mt-4 bg-gradient-to-r from-primary-500 to-accent-500 px-6 py-2 rounded-full font-semibold">
+            <button 
+              onClick={handleWhatsAppClick}
+              className="w-full mt-4 bg-gradient-to-r from-primary-500 to-accent-500 px-6 py-2 rounded-full font-semibold"
+            >
               Começar Projeto
             </button>
           </motion.nav>

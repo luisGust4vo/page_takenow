@@ -10,6 +10,7 @@ import Contact from './components/Contact'
 import Footer from './components/Footer'
 import ParticleBackground from './components/ParticleBackground'
 import WhatsAppButton from './components/WhatsAppButton'
+import DiscreteBanner from './components/DiscreteBanner'
 import Loading from './components/Loading'
 
 function App() {
@@ -47,6 +48,7 @@ function App() {
       </main>
       <Footer />
       <WhatsAppButton />
+      <DiscreteBanner />
     </div>
   )
 }

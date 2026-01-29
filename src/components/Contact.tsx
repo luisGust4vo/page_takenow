@@ -10,7 +10,7 @@ const Contact = () => {
     threshold: 0.1
   })
 
-  const whatsappNumber = "5511999999999"
+  const whatsappNumber = "5537988419118"
   const whatsappMessage = "Olá! Gostaria de saber mais sobre os serviços da TakeNow."
 
   const handleWhatsAppClick = () => {
@@ -22,7 +22,7 @@ const Contact = () => {
     {
       icon: <MessageCircle size={24} />,
       title: 'WhatsApp',
-      info: '+55 (11) 9999-9999',
+      info: '+55 (37) 9 8841-9118',
       action: handleWhatsAppClick
     },
     {

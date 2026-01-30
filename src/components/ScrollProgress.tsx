@@ -8,13 +8,18 @@ const ScrollProgress = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      const totalHeight = document.documentElement.scrollHeight - window.innerHeight
-      const progress = (window.scrollY / totalHeight) * 100
-      setScrollProgress(progress)
-      setIsVisible(window.scrollY > 300)
+      try {
+        const totalHeight = document.documentElement.scrollHeight - window.innerHeight
+        const progress = totalHeight > 0 ? (window.scrollY / totalHeight) * 100 : 0
+        setScrollProgress(Math.min(100, Math.max(0, progress)))
+        setIsVisible(window.scrollY > 300)
+      } catch (error) {
+        console.error('Scroll error:', error)
+      }
     }
 
-    window.addEventListener('scroll', handleScroll)
+    handleScroll() // Chamada inicial
+    window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
@@ -27,7 +32,10 @@ const ScrollProgress = () => {
       {/* Barra de progresso */}
       <motion.div
         className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary-500 to-secondary-500 z-50 origin-left"
-        style={{ scaleX: scrollProgress / 100 }}
+        style={{ 
+          scaleX: Math.min(1, Math.max(0, scrollProgress / 100)),
+          transformOrigin: 'left'
+        }}
         initial={{ scaleX: 0 }}
       />
 

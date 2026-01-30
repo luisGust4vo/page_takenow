@@ -56,7 +56,7 @@ const About = () => {
   const stats = [
     { icon: <Users size={24} />, number: '800+', label: 'Clientes Atendidos' },
     { icon: <Rocket size={24} />, number: '500+', label: 'Projetos Entregues' },
-    { icon: <Lightbulb size={24} />, number: '5+', label: 'Anos de Mercado' },
+    { icon: <Lightbulb size={24} />, number: '8+', label: 'Anos de Mercado' },
     { icon: <Award size={24} />, number: '99%', label: 'Satisfação Cliente' }
   ]
   

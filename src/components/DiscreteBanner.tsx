@@ -14,10 +14,10 @@ const DiscreteBanner = () => {
       return
     }
 
-    // Mostra o banner após 30 segundos
+    // Mostra o banner após 10 segundos (para teste)
     const timer = setTimeout(() => {
       setIsVisible(true)
-    }, 30000)
+    }, 10000)
 
     return () => clearTimeout(timer)
   }, [])
@@ -49,7 +49,8 @@ const DiscreteBanner = () => {
       {isVisible && (
         <motion.div
           initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: 20 }}
           transition={{ duration: 0.5, ease: "easeOut" }}
           className="fixed bottom-4 md:bottom-6 right-4 md:right-6 z-50 max-w-xs sm:max-w-sm"
         >

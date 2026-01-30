@@ -54,9 +54,9 @@ const About = () => {
   ]
 
   const stats = [
-    { icon: <Users size={24} />, number: '50+', label: 'Clientes Atendidos' },
-    { icon: <Rocket size={24} />, number: '100+', label: 'Projetos Entregues' },
-    { icon: <Lightbulb size={24} />, number: '5+', label: 'Anos de Mercado' },
+    { icon: <Users size={24} />, number: '800+', label: 'Clientes Atendidos' },
+    { icon: <Rocket size={24} />, number: '500+', label: 'Projetos Entregues' },
+    { icon: <Lightbulb size={24} />, number: '8+', label: 'Anos de Mercado' },
     { icon: <Award size={24} />, number: '99%', label: 'Satisfação Cliente' }
   ]
   
@@ -165,21 +165,21 @@ const About = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.8 }}
-          className="grid grid-cols-2 md:grid-cols-4 gap-8"
+          className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8"
         >
           {stats.map((stat, index) => (
             <motion.div
               key={index}
               whileHover={{ scale: 1.05 }}
-              className="text-center p-6 bg-gradient-to-br from-gray-800/30 to-gray-900/30 rounded-xl backdrop-blur-sm border border-gray-700/30"
+              className="text-center p-4 md:p-6 bg-gradient-to-br from-gray-800/30 to-gray-900/30 rounded-xl backdrop-blur-sm border border-gray-700/30"
             >
-              <div className="text-primary-400 flex justify-center mb-3">
+              <div className="text-primary-400 flex justify-center mb-2 md:mb-3">
                 {stat.icon}
               </div>
-              <div className="text-3xl font-bold text-white mb-2">
+              <div className="text-2xl md:text-3xl font-bold text-white mb-1 md:mb-2">
                 {stat.number}
               </div>
-              <div className="text-gray-400 text-sm">
+              <div className="text-gray-400 text-xs md:text-sm">
                 {stat.label}
               </div>
             </motion.div>

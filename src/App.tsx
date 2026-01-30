@@ -9,8 +9,10 @@ import Portfolio from './components/Portfolio'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
 import ParticleBackground from './components/ParticleBackground'
+import InteractiveParticles from './components/InteractiveParticles'
 import WhatsAppButton from './components/WhatsAppButton'
 import DiscreteBanner from './components/DiscreteBanner'
+import ScrollProgress from './components/ScrollProgress'
 import Loading from './components/Loading'
 
 function App() {
@@ -37,7 +39,9 @@ function App() {
 
   return (
     <div className="min-h-screen bg-gray-900 text-white overflow-x-hidden">
+      <ScrollProgress />
       <ParticleBackground />
+      <InteractiveParticles />
       <Header />
       <main>
         <Hero />

@@ -146,7 +146,7 @@ const Contact = () => {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
               {contactInfo.map((item, index) => (
                 <motion.div
                   key={index}
@@ -155,7 +155,7 @@ const Contact = () => {
                   transition={{ duration: 0.6, delay: 0.4 + index * 0.1 }}
                   whileHover={{ scale: 1.02 }}
                   onClick={item.action}
-                  className={`flex items-center space-x-4 p-6 bg-gradient-to-r from-gray-800/50 to-gray-900/50 rounded-xl backdrop-blur-sm border border-gray-700/50 transition-all duration-300 group ${
+                  className={`flex items-center space-x-4 p-4 md:p-6 bg-gradient-to-r from-gray-800/50 to-gray-900/50 rounded-xl backdrop-blur-sm border border-gray-700/50 transition-all duration-300 group ${
                     item.action ? 'cursor-pointer hover:border-green-500/50 hover:bg-green-500/10' : 'hover:border-primary-500/50'
                   }`}
                 >
@@ -232,7 +232,7 @@ const Contact = () => {
                 whileTap={{ scale: 0.95 }}
                 onClick={handleWhatsAppClick}
                 disabled={showCaptcha}
-                className={`px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 flex items-center gap-2 mx-auto ${
+                className={`w-full px-6 md:px-8 py-3 md:py-4 rounded-lg font-semibold text-base md:text-lg transition-all duration-300 flex items-center justify-center gap-2 ${
                   showCaptcha 
                     ? 'bg-gray-600 cursor-not-allowed' 
                     : 'bg-gradient-to-r from-green-500 to-green-600 hover:shadow-lg'

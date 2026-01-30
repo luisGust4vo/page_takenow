@@ -61,11 +61,11 @@ const Portfolio = () => {
     if (inView) {
       const timer = setInterval(() => {
         setProjectCount(prev => {
-          if (prev < 50) return prev + 1
+          if (prev < 500) return prev + 5
           clearInterval(timer)
-          return 50
+          return 500
         })
-      }, 30)
+      }, 20)
       return () => clearInterval(timer)
     }
   }, [inView])
@@ -164,15 +164,15 @@ const Portfolio = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.5 }}
-            className="flex justify-center items-center gap-8 text-center"
+            className="flex flex-col sm:flex-row justify-center items-center gap-4 md:gap-8 text-center"
           >
-            <div className="bg-gradient-to-br from-primary-500/20 to-secondary-500/20 backdrop-blur-sm border border-primary-500/30 rounded-2xl px-6 py-4">
-              <div className="text-3xl font-bold text-primary-400">{projectCount}+</div>
-              <div className="text-sm text-gray-400">Projetos Entregues</div>
+            <div className="bg-gradient-to-br from-primary-500/20 to-secondary-500/20 backdrop-blur-sm border border-primary-500/30 rounded-2xl px-4 md:px-6 py-4">
+              <div className="text-2xl md:text-3xl font-bold text-primary-400">{projectCount}+</div>
+              <div className="text-xs md:text-sm text-gray-400">Projetos Entregues</div>
             </div>
-            <div className="bg-gradient-to-br from-secondary-500/20 to-primary-500/20 backdrop-blur-sm border border-secondary-500/30 rounded-2xl px-6 py-4">
-              <div className="text-3xl font-bold text-secondary-400">100%</div>
-              <div className="text-sm text-gray-400">Satisfação</div>
+            <div className="bg-gradient-to-br from-secondary-500/20 to-primary-500/20 backdrop-blur-sm border border-secondary-500/30 rounded-2xl px-4 md:px-6 py-4">
+              <div className="text-2xl md:text-3xl font-bold text-secondary-400">100%</div>
+              <div className="text-xs md:text-sm text-gray-400">Satisfação</div>
             </div>
           </motion.div>
         </motion.div>
@@ -429,7 +429,7 @@ const Portfolio = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 1 }}
-          className="text-center mt-16"
+          className="text-center mt-12 md:mt-16 px-4"
         >
           <motion.button
             whileHover={{ 
@@ -439,7 +439,7 @@ const Portfolio = () => {
             }}
             whileTap={{ scale: 0.95 }}
             onClick={handleWhatsAppClick}
-            className="bg-gradient-to-r from-primary-500 via-blue-500 to-secondary-500 px-10 py-4 rounded-full font-bold text-lg hover:shadow-2xl transition-all duration-400 text-white border border-primary-400/30 hover:border-primary-300/50 relative overflow-hidden group"
+            className="w-full sm:w-auto bg-gradient-to-r from-primary-500 via-blue-500 to-secondary-500 px-8 md:px-10 py-3 md:py-4 rounded-full font-bold text-base md:text-lg hover:shadow-2xl transition-all duration-400 text-white border border-primary-400/30 hover:border-primary-300/50 relative overflow-hidden group"
           >
             <span className="relative z-10">Falar sobre um projeto</span>
             <div className="absolute inset-0 bg-gradient-to-r from-primary-600 via-blue-600 to-secondary-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>

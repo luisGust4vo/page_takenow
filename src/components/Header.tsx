@@ -6,6 +6,21 @@ import {Menu, X} from 'lucide-react'
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [logoClicks, setLogoClicks] = useState(0)
+  const [showEasterEgg, setShowEasterEgg] = useState(false)
+
+  // Easter egg no logo
+  const handleLogoClick = () => {
+    setLogoClicks(prev => {
+      const newCount = prev + 1
+      if (newCount === 5) {
+        setShowEasterEgg(true)
+        setTimeout(() => setShowEasterEgg(false), 3000)
+        return 0
+      }
+      return newCount
+    })
+  }
 
   // WhatsApp contact function
   const handleWhatsAppClick = () => {
@@ -57,7 +72,8 @@ const Header = () => {
         <div className="flex items-center justify-between">
           <motion.div
             whileHover={{ scale: 1.05 }}
-            className={`flex items-center space-x-1 ${!isScrolled ? 'md:flex hidden' : 'flex'} relative`}
+            onClick={handleLogoClick}
+            className={`flex items-center space-x-1 ${!isScrolled ? 'md:flex hidden' : 'flex'} relative cursor-pointer`}
           >
             <div className="relative">
               <motion.img 
@@ -103,8 +119,18 @@ const Header = () => {
                 />
               ))}
             </div>
-            <span className="text-2xl font-bold text-white">
+            <span className="text-2xl font-bold text-white relative">
               TakeNow
+              {showEasterEgg && (
+                <motion.div
+                  initial={{ opacity: 0, y: -20 }}
+                  animate={{ opacity: 1, y: -30 }}
+                  exit={{ opacity: 0, y: -40 }}
+                  className="absolute -top-8 left-0 text-xs bg-primary-500 text-white px-2 py-1 rounded whitespace-nowrap"
+                >
+                  🎉 Você encontrou o easter egg!
+                </motion.div>
+              )}
             </span>
           </motion.div>
 

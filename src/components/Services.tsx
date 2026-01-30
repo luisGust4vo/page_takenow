@@ -95,25 +95,25 @@ const Services = () => {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           {services.map((service, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 50 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: index * 0.1 }}
-              whileHover={{ y: -10, scale: 1.02 }}
-              className="group bg-gradient-to-br from-gray-800/50 to-gray-900/50 p-8 rounded-2xl backdrop-blur-sm border border-gray-700/50 hover:border-primary-500/50 transition-all duration-300"
+              whileHover={{ y: -10, scale: 1.02, rotateY: 5 }}
+              className="group bg-gradient-to-br from-gray-800/50 to-gray-900/50 p-6 md:p-8 rounded-2xl backdrop-blur-sm border border-gray-700/50 hover:border-primary-500/50 transition-all duration-300 relative overflow-hidden"
             >
               <div className="text-primary-400 mb-6 group-hover:text-secondary-400 transition-colors duration-300">
                 {service.icon}
               </div>
 
-              <h3 className="text-2xl font-bold text-white mb-4 group-hover:text-primary-400 transition-colors duration-300">
+              <h3 className="text-xl md:text-2xl font-bold text-white mb-4 group-hover:text-primary-400 transition-colors duration-300">
                 {service.title}
               </h3>
 
-              <p className="text-gray-300 mb-6 leading-relaxed">
+              <p className="text-gray-300 mb-6 leading-relaxed text-sm md:text-base">
                 {service.description}
               </p>
 

@@ -48,40 +48,39 @@ const DiscreteBanner = () => {
     <AnimatePresence>
       {isVisible && (
         <motion.div
-          initial={{ y: 100, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          exit={{ y: 100, opacity: 0 }}
+          initial={{ opacity: 0, y: 20 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5, ease: "easeOut" }}
-          className="fixed bottom-6 right-6 z-50 max-w-sm"
+          className="fixed bottom-4 md:bottom-6 right-4 md:right-6 z-50 max-w-xs sm:max-w-sm"
         >
-          <div className="bg-gradient-to-r from-gray-800/95 to-gray-900/95 backdrop-blur-md border border-gray-700/50 rounded-xl p-4 shadow-2xl">
+          <div className="bg-gradient-to-r from-gray-800/95 to-gray-900/95 backdrop-blur-md border border-gray-700/50 rounded-xl p-3 md:p-4 shadow-2xl">
             {/* Close Button */}
             <button
               onClick={handleDismiss}
-              className="absolute top-2 right-2 text-gray-400 hover:text-white transition-colors"
+              className="absolute top-1 md:top-2 right-1 md:right-2 text-gray-400 hover:text-white transition-colors p-1"
             >
-              <X size={16} />
+              <X size={14} />
             </button>
 
             {/* Content */}
-            <div className="flex items-start gap-3">
-              <div className="bg-gradient-to-r from-primary-500 to-accent-500 p-2 rounded-lg">
-                <Gift className="text-white" size={20} />
+            <div className="flex items-start gap-2 md:gap-3">
+              <div className="bg-gradient-to-r from-primary-500 to-accent-500 p-1.5 md:p-2 rounded-lg flex-shrink-0">
+                <Gift className="text-white" size={16} />
               </div>
               
-              <div className="flex-1">
-                <h4 className="text-white font-semibold text-sm mb-1">
+              <div className="flex-1 min-w-0">
+                <h4 className="text-white font-semibold text-xs md:text-sm mb-1">
                   Consultoria Gratuita
                 </h4>
-                <p className="text-gray-300 text-xs mb-3 leading-relaxed">
+                <p className="text-gray-300 text-xs leading-relaxed mb-2 md:mb-3">
                   Converse com nossos especialistas e descubra como podemos ajudar seu negócio.
                 </p>
                 
                 <button
                   onClick={handleWhatsAppClick}
-                  className="bg-gradient-to-r from-green-500 to-green-600 text-white text-xs font-semibold px-3 py-2 rounded-lg hover:shadow-lg transition-all duration-300 flex items-center gap-2"
+                  className="w-full bg-gradient-to-r from-green-500 to-green-600 text-white text-xs font-semibold px-3 py-2 rounded-lg hover:shadow-lg transition-all duration-300 flex items-center justify-center gap-2"
                 >
-                  <MessageCircle size={14} />
+                  <MessageCircle size={12} />
                   Falar Agora
                 </button>
               </div>

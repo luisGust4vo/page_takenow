@@ -91,7 +91,7 @@ const Hero = () => {
           className="max-w-5xl mx-auto"
         >
           <motion.h1 
-            className="text-5xl md:text-7xl font-bold mb-6 leading-tight"
+            className="text-4xl md:text-7xl font-bold mb-6 leading-tight"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 0.8 }}
@@ -102,14 +102,20 @@ const Hero = () => {
             <br />
             <span className="text-white">Suas Ideias em</span>
             <br />
-            <span className="text-primary-400 min-h-[80px] block">
+            <span className="text-primary-400 min-h-[60px] md:min-h-[80px] block relative">
               {displayText}
-              <span className="animate-pulse">|</span>
+              <motion.span 
+                className="inline-block w-1 h-12 md:h-16 bg-primary-400 ml-1"
+                animate={{ opacity: [1, 0, 1] }}
+                transition={{ repeat: Infinity, duration: 1.2 }}
+              >
+                |  
+              </motion.span>
             </span>
           </motion.h1>
 
           <motion.p 
-            className="text-xl md:text-2xl text-gray-100 mb-8 max-w-3xl mx-auto leading-relaxed"
+            className="text-lg md:text-2xl text-gray-100 mb-8 max-w-3xl mx-auto leading-relaxed px-4"
             initial={{ opacity: 0, y: 30 }} 
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.8 }}
@@ -119,7 +125,7 @@ const Hero = () => {
           </motion.p>
 
           <motion.div 
-            className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12"
+            className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12 px-4"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6, duration: 0.8 }}
@@ -128,17 +134,17 @@ const Hero = () => {
               whileHover={{ scale: 1.05, boxShadow: '0 20px 40px rgba(14, 165, 233, 0.3)' }}
               whileTap={{ scale: 0.95 }}
               onClick={() => handleWhatsAppClick('projeto')}
-              className="bg-gradient-to-r from-primary-500 to-secondary-500 px-8 py-4 rounded-full font-semibold text-lg flex items-center gap-2 hover:shadow-2xl transition-all duration-300 text-white"
+              className="w-full sm:w-auto bg-gradient-to-r from-primary-500 to-secondary-500 px-6 md:px-8 py-3 md:py-4 rounded-full font-semibold text-base md:text-lg flex items-center justify-center gap-2 hover:shadow-2xl transition-all duration-300 text-white"
             >
               Começar Meu Projeto
-              <ArrowRight size={20} />
+              <ArrowRight size={18} />
             </motion.button>
             
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => handleWhatsAppClick('portfolio')}
-              className="border-2 border-primary-500 text-primary-400 px-8 py-4 rounded-full font-semibold text-lg hover:bg-primary-500 hover:text-white transition-all duration-300"
+              className="w-full sm:w-auto border-2 border-primary-500 text-primary-400 px-6 md:px-8 py-3 md:py-4 rounded-full font-semibold text-base md:text-lg hover:bg-primary-500 hover:text-white transition-all duration-300"
             >
               Ver Portfolio
             </motion.button>
@@ -146,7 +152,7 @@ const Hero = () => {
 
           {/* Stats */}
           <motion.div 
-            className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-2xl mx-auto"
+            className="grid grid-cols-1 sm:grid-cols-3 gap-6 md:gap-8 max-w-2xl mx-auto px-4"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.8, duration: 0.8 }}
@@ -155,14 +161,14 @@ const Hero = () => {
               <div className="flex justify-center mb-2">
                 <Code className="text-primary-400" size={32} />
               </div>
-              <div className="text-3xl font-bold text-white">100+</div>
+              <div className="text-3xl font-bold text-white">500+</div>
               <div className="text-gray-200">Projetos Entregues</div>
             </div>
             <div className="text-center">
               <div className="flex justify-center mb-2">
                 <Users className="text-secondary-400" size={32} />
               </div>
-              <div className="text-3xl font-bold text-white">50+</div>
+              <div className="text-3xl font-bold text-white">800+</div>
               <div className="text-gray-200">Clientes Satisfeitos</div>
             </div>
             <div className="text-center">
